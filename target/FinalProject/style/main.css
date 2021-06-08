@@ -1,0 +1,34 @@
+@import url("fronts");
+header{
+    background-color: #334d4d;
+}
+body {
+    background-color: #334d4d;
+}
+#loginPageForm {
+    font-family: Unispace, monospace;
+    front-weight: 300;
+    font-size: 18px;
+    color: #d1d6ff;
+}
+#loginPageRegButton {
+    font-family: Unispace, monospace;
+    front-weight: 300;
+    font-size: 18px;
+    color: #d1d6ff;
+}
+
+h1, h2, h3 {
+    font-family: Unispace, monospace;
+    front-weight: 300;
+    font-size: 18px;
+    color: #d1d6ff;
+}
+
+#navBar {
+    background-color: #203434;
+}
+
+.btn {
+    background-color: #adbcc2;
+}
