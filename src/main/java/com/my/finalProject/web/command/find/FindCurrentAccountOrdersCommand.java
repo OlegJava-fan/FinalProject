@@ -39,6 +39,7 @@ public class FindCurrentAccountOrdersCommand extends Command {
             LOGGER.trace("faculties List Group By Order" + facultiesListGroupByOrder.size());
             req.getSession().setAttribute("facultiesListGroupByOrder", facultiesListGroupByOrder);
         } catch (DBException e) {
+            LOGGER.error("cant create list faculties which the user applied",e);
             req.getSession().setAttribute("errorMassage", e.getMessage());
             return ERROR_PAGE;
         }

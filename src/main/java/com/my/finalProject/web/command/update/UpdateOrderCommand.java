@@ -50,6 +50,7 @@ public class UpdateOrderCommand extends Command {
             try {
                 OrderDAO.getInstance().UpdateOrder(order);
             } catch (DBException e) {
+                LOGGER.error("cant update order");
                 request.getSession().setAttribute("errorMassage", e.getMessage());
                 return ERROR_PAGE;
             }

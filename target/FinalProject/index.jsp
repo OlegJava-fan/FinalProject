@@ -26,15 +26,13 @@
         </div>
     </div>
     <nav id="navBar" class="navbar navbar-expand-sm ">
-
         <div class="mt-sm-3 col-sm-12 d-flex justify-content-sm-end" id="loginPageRegButton">
             <form action="registration.jsp">
                 <div class="button">
-                    <button type="submit" class="btn">Registration</button>
+                    <button type="submit" class="btn btn-sm">Registration</button>
                 </div>
             </form>
         </div>
-
     </nav>
 </header>
 <body>
@@ -42,37 +40,46 @@
     <div class="d-flex justify-content-sm-center mt-sm-3">
         <c:if test="${not empty sessionScope.errorMassage}">
             <h1>${sessionScope.errorMassage}</h1></c:if>
-        <c:remove var="errorMassage" scope="session" />
+        <c:remove var="errorMassage" scope="session"/>
     </div>
     <div class="d-flex justify-content-sm-center mt-sm-3" id="regSuccessfully">
         <c:if test="${not empty sessionScope.regSuccessfully}">
             <h1>${sessionScope.regSuccessfully}</h1></c:if>
-        <c:remove var="regSuccessfully" scope="session" />
+        <c:remove var="regSuccessfully" scope="session"/>
     </div>
     <div class="d-flex justify-content-center mt-sm-3">
+        <form class="container-fluid" action="controller" method="post">
+            <div class="row align-items-center mt-sm-2 ">
+                <div class="col-sm-6 d-flex justify-content-sm-end  ">
+                    <label class="mb-sm-0" for="login">
+                        <h1 class=" mb-sm-0">Login:</h1>
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <input class="mb-sm-0" type="text" id="login" name="login">
+                </div>
+            </div>
+            <div class="row align-items-center mt-sm-2 ">
+                <div class="col-sm-6 d-flex justify-content-sm-end ">
+                    <label class=" mb-sm-0" for="password">
+                        <h1 class=" mb-sm-0">Password:</h1>
+                    </label>
+                </div>
+                <div class="col-sm-6">
 
-        <div id="loginPageForm">
-            <form class="container-fluid" action="controller" method="post">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <label class="pt-sm-2" for="login">Login:</label>
-                        <label class="pt-sm-3" for="password">Password:</label>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="form-group">
-                            <input type="text" id="login" name="login">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" id="password" name="password">
-                        </div>
+                    <input class="mb-sm-0" type="password" id="password" name="password">
+
+                </div>
+            </div>
+            <div class="row mt-sm-2 ">
+                <div class="col-sm-6 d-flex justify-content-sm-end ">
+                    <div class="button">
+                        <input type="hidden" name="command" value="login"/>
+                        <button type="submit" class="btn btn-sm">Submit</button>
                     </div>
                 </div>
-                <div class="button">
-                    <input type="hidden" name="command" value="login"/>
-                    <button type="submit" class="btn">Submit</button>
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
 <my:bootstrapScript/>

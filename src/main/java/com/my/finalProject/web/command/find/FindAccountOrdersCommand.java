@@ -30,6 +30,7 @@ public class FindAccountOrdersCommand extends Command {
         Account account = null;
         try {
             account = AccountDAO.getInstance().findAccountByID(Long.parseLong(account_id));
+            request.setAttribute("currentAccountInfo", account);
         }catch (DBException e){
             LOGGER.error("can not find current account", e);
             request.getSession().setAttribute("errorMassage", e.getMessage());
@@ -37,7 +38,7 @@ public class FindAccountOrdersCommand extends Command {
         }
 
         try {
-            request.getSession().setAttribute("currentAccountInfo", account);
+
             acts = ActDAO.getInstance().findAllActByAccountID(Long.parseLong(account_id));
         } catch (DBException | NumberFormatException | NullPointerException e) {
             LOGGER.error("can not find all account acts", e);
@@ -60,7 +61,7 @@ public class FindAccountOrdersCommand extends Command {
             }
             request.getSession().setAttribute("facultiesListGroupByOrder", facultiesListGroupByOrder);
         } catch (DBException e) {
-
+            LOGGER.error("can not find all account orders", e);
             request.getSession().setAttribute("errorMassage", e.getMessage());
             return ERROR_PAGE;
         }

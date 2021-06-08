@@ -25,7 +25,6 @@ public class ConfirmAdmissionFacultiesCommand extends Command {
         String account_id = req.getParameter("account_id");
         String faculties_id = req.getParameter("faculties_id");
         String status = req.getParameter("status");
-
         Faculties faculties;
         Account account;
 
@@ -34,8 +33,13 @@ public class ConfirmAdmissionFacultiesCommand extends Command {
             account = AccountDAO.getInstance().findAccountByID(Long.parseLong(account_id));
 
         } catch (DBException e) {
+            LOGGER.error("cant find account of faculty",e);
             req.getSession().setAttribute("errorMassage", e.getMessage());
             return ERROR_PAGE;
+        }
+        if (!DEFAULT_FACULTIES_NAME.equals(account.getFaculties_name())) {
+            req.getSession().setAttribute("alreadyAcceptedFaculty", "you already accepted faculty " + account.getFaculties_name());
+            return MY_ACCOUNT_ACT;
         }
 
         if (!status.isEmpty()) {
@@ -54,13 +58,13 @@ public class ConfirmAdmissionFacultiesCommand extends Command {
 
             Connection connection = DBManager.getInstance().getConnection();
 
-
             try {
                 FacultiesDAO.getInstance().updateFaculties(connection, faculties);
                 AccountDAO.getInstance().updateAccount(connection, account);
 
                 DBManager.getInstance().commit(connection);
             } catch (DBException e) {
+                LOGGER.error("transaction fail",e);
                 req.getSession().setAttribute("errorMassage", e.getMessage());
                 DBManager.getInstance().rollback(connection);
                 return ERROR_PAGE;
@@ -68,18 +72,14 @@ public class ConfirmAdmissionFacultiesCommand extends Command {
                 DBManager.getInstance().closeResource(connection);
             }
 
-
             account = AccountDAO.getInstance().findAccountByID(Long.parseLong(account_id));
 
+            req.getSession().removeAttribute("accountActList");
+            req.getSession().setAttribute("passedOnFacultiesName", account.getFaculties_name());
+            req.getSession().setAttribute("passedOnFacultiesStudyForm", status);
 
             LOGGER.debug("finish command");
-
-            req.getSession().removeAttribute("accountActList");
-
-            req.setAttribute("passedOnFacultiesName", account.getFaculties_name());
-            req.setAttribute("passedOnFacultiesStudyForm", status);
             return MY_ACCOUNT_ACT;
-
         }
         String errorMassage = "find status name is empty";
         LOGGER.error(errorMassage);

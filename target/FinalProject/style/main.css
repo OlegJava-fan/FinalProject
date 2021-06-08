@@ -5,12 +5,7 @@ header{
 body {
     background-color: #334d4d;
 }
-#loginPageForm {
-    font-family: Unispace, monospace;
-    front-weight: 300;
-    font-size: 18px;
-    color: #d1d6ff;
-}
+
 #loginPageRegButton {
     font-family: Unispace, monospace;
     front-weight: 300;

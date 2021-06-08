@@ -31,28 +31,28 @@ public class AddOrderCommand extends Command {
         Faculties faculties = null;
         Certificate certificate = null;
         String account_id = request.getParameter("account_id");
-
         String faculties_id = request.getParameter("faculties_id");
         Order orderIfExist;
-
 
         if (account_id != null) {
             try {
                 orderIfExist =
                         OrderDAO.getInstance().findOrderByAccountIdAndFacultiesId(Long.parseLong(account_id), Long.parseLong(faculties_id));
             } catch (DBException e) {
+                LOGGER.error("cant find order by account and faculty id", e);
                 request.getSession().setAttribute("errorMassage", e.getMessage());
                 return forward;
             }
             if (orderIfExist != null) {
                 request.getSession().setAttribute("facultiesExistInOrder", faculties_id);
-                return "client.jsp";
+                return CLIENT_PAGE;
             }
 
             order.setAccount_id(Long.parseLong(account_id));
             try {
                 certificate = CertificateDAO.getInstance().findCertificateByID(Long.parseLong(account_id));
             } catch (DBException e) {
+                LOGGER.error("cant find certificate", e);
                 request.getSession().setAttribute("errorMassage", e.getMessage());
                 return forward;
             }
@@ -92,9 +92,8 @@ public class AddOrderCommand extends Command {
             OrderDAO.getInstance().addOrder(order);
 
         } catch (DBException e) {
-
+            LOGGER.error("cant add new order");
             request.getSession().setAttribute("errorMassage", e.getMessage());
-
             return forward;
         }
         LOGGER.debug("Command finish");

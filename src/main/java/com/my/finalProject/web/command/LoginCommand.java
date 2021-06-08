@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.my.finalProject.Path.*;
 import static com.my.finalProject.utils.PasswordHash.hash;
 
 public class LoginCommand extends Command {
@@ -55,6 +56,7 @@ public class LoginCommand extends Command {
 
         } catch (BuildException e) {
             errorMassage = "Can not hash account password";
+            LOGGER.error(errorMassage, e);
             request.getSession().setAttribute("errorMassage", e.getMessage());
             return forward;
         }
@@ -62,12 +64,12 @@ public class LoginCommand extends Command {
             errorMassage = "Can not find user with login/password";
             request.getSession().setAttribute("errorMassage", errorMassage);
             LOGGER.error("errorMassage " + errorMassage);
-            return "index.jsp";
+            return LOGIN_PAGE;
         } else {
             Role role = Role.getRole(account);
             LOGGER.trace("role = " + role);
             if (role == Role.ADMIN) {
-                forward = "admin.jsp";
+                forward = ADMIN_PAGE;
                 List<Role> roleList = Arrays.asList(Role.values());
                 List<StatusOrder> statusOrderList = Arrays.asList(StatusOrder.values());
                 session.setAttribute("roleList", roleList);
@@ -76,11 +78,11 @@ public class LoginCommand extends Command {
 
             }
             if (role == Role.USER) {
-                forward = "client.jsp";
+                forward = CLIENT_PAGE;
             }
             if (role == Role.BANNED) {
                 errorMassage = "You are blocked in system";
-                request.getSession().setAttribute ("errorMassage", errorMassage);
+                request.getSession().setAttribute("errorMassage", errorMassage);
                 return forward;
             }
             try {
@@ -88,7 +90,7 @@ public class LoginCommand extends Command {
                 session.setAttribute("facultiesList", facultiesList);
                 LOGGER.trace("Set the session attribute: all faculties --> " + facultiesList.size());
             } catch (DBException e) {
-
+                LOGGER.error("cant find all faculties",e);
                 request.getSession().setAttribute("errorMassage", e.getMessage());
                 return forward;
             }

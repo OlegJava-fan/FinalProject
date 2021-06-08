@@ -30,12 +30,12 @@ public class FindAccountActCommand extends Command {
             account = AccountDAO.getInstance().findAccountByID(Long.parseLong(account_id));
         } catch (DBException | NumberFormatException e) {
             LOGGER.error("dont find account", e);
-            request.getSession(). setAttribute("errorMassage", e.getMessage());
+            request.getSession().setAttribute("errorMassage", e.getMessage());
             return ERROR_PAGE;
         }
 
         if (!account.getFaculties_name().equals(DEFAULT_FACULTIES_NAME)) {
-            request.setAttribute("alreadyAcceptedFaculty", "You already accepted faculty " + account.getFaculties_name());
+            request.getSession().setAttribute("alreadyAcceptedFaculty", "You already accepted faculty " + account.getFaculties_name());
             return MY_ACCOUNT_ACT;
         }
 
@@ -46,7 +46,7 @@ public class FindAccountActCommand extends Command {
             LOGGER.trace(accountActList.size());
         } catch (DBException e) {
             LOGGER.error("cant find all account acts ", e);
-            request.getSession(). setAttribute("errorMassage", e.getMessage());
+            request.getSession().setAttribute("errorMassage", e.getMessage());
             return ERROR_PAGE;
         }
         LOGGER.debug("command finish");

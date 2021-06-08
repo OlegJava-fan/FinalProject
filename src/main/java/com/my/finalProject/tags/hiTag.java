@@ -2,8 +2,6 @@ package com.my.finalProject.tags;
 
 import com.my.finalProject.db.entity.entityImpl.Account;
 
-
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 
@@ -16,7 +14,7 @@ public class hiTag extends TagSupport {
     }
 
     @Override
-    public int doStartTag() throws JspException {
+    public int doStartTag() {
 
         try {
             pageContext.getOut()

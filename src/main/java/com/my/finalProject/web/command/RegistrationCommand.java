@@ -35,6 +35,7 @@ public class RegistrationCommand extends Command {
             account = new AccountBuilder().build(request, new Account());
             notValidAccountField = new AccountValidator().validate(account);
         } catch (BuildException |DBException e) {
+            LOGGER.error("cant validate account",e);
             request.setAttribute("errorMassage", e.getMessage());
             return forward;
         }

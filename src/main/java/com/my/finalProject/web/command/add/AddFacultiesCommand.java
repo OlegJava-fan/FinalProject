@@ -46,6 +46,7 @@ public class AddFacultiesCommand extends Command {
             FacultiesDAO.getInstance().addFaculties(faculties);
 
         } catch (DBException e) {
+            LOGGER.error("cant add new faculty");
             request.getSession().setAttribute("errorMassage", e.getMessage());
             return forward;
         }
@@ -54,6 +55,7 @@ public class AddFacultiesCommand extends Command {
             List<Faculties> facultiesList = FacultiesDAO.getInstance().findAllFaculties();
             request.getSession().setAttribute("facultiesList", facultiesList);
         } catch (DBException e) {
+            LOGGER.error("cant update list faculties",e);
             request.getSession().setAttribute("errorMassage", e.getMessage());
             return forward;
         }

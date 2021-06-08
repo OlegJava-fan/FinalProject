@@ -40,7 +40,8 @@
     </nav>
 </header>
 <body>
-<c:if test="${empty requestScope.actSuccessfullyCreated}">
+<c:choose>
+<c:when test="${empty sessionScope.actSuccessfullyCreated && empty sessionScope.actsAlreadyExist}">
     <table border="1" class="table table-hover text-center text-white my-table-class">
         <tr>
             <th>first name</th>
@@ -49,9 +50,9 @@
             <th>average score</th>
         </tr>
         <tr>
-            <td>${param.firstName} </td>
-            <td>${param.middleName}</td>
-            <td>${param.lastName}</td>
+            <td>${requestScope.currentAccountInfo.firstName} </td>
+            <td>${requestScope.currentAccountInfo.middleName}</td>
+            <td>${requestScope.currentAccountInfo.lastName}</td>
             <td>${sessionScope.certificateAccount.averageScore}</td>
         </tr>
     </table>
@@ -107,22 +108,34 @@
         </tbody>
     </table>
     <div class="button ml-sm-3">
-        <form action="controller" method="get">
+        <form action="controller" method="post">
             <input type="hidden" name="account_id" value="${param.account_id}"/>
             <input type="hidden" name="command" value="addAct"/>
             <button class="btn btn-sm" type="submit"> submit act</button>
         </form>
     </div>
-</c:if>
-<c:if test="${not empty requestScope.actSuccessfullyCreated}">
+</c:when>
+<c:when test="${not empty sessionScope.actSuccessfullyCreated && empty sessionScope.actsAlreadyExist}">
     <div class="container-fluid mt-sm-3">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="d-flex justify-content-sm-center">${requestScope.actSuccessfullyCreated}</h2>
+                <h2 class="d-flex justify-content-sm-center">${sessionScope.actSuccessfullyCreated}</h2>
             </div>
         </div>
     </div>
-</c:if>
 
+</c:when>
+
+<c:when test="${not empty sessionScope.actsAlreadyExist}">
+    <div class="container-fluid mt-sm-3">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="d-flex justify-content-sm-center">${sessionScope.actsAlreadyExist}</h2>
+            </div>
+        </div>
+    </div>
+
+</c:when>
+</c:choose>
 </body>
 </html>

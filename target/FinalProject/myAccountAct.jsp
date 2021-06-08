@@ -47,20 +47,20 @@
     </nav>
 </header>
 <c:choose>
-    <c:when test="${not empty requestScope.alreadyAcceptedFaculty}">
+    <c:when test="${not empty sessionScope.alreadyAcceptedFaculty}">
         <div class="container-fluid mt-sm-3">
             <div class="col-sm-12 d-flex justify-content-sm-center">
-                <h2>${requestScope.alreadyAcceptedFaculty}</h2>
+                <h2>${sessionScope.alreadyAcceptedFaculty}</h2>
             </div>
         </div>
 
     </c:when>
 
-    <c:when test="${not empty requestScope.passedOnFacultiesStudyForm}">
+    <c:when test="${not empty sessionScope.passedOnFacultiesStudyForm}">
         <div class="container-fluid mt-sm-3">
             <div class="col-sm-12 d-flex justify-content-sm-center">
-                <h2>Congratulations, you are accepted to the faculty ${requestScope.passedOnFacultiesName}.Your study
-                    form ${requestScope.passedOnFacultiesStudyForm} </h2>
+                <h2>Congratulations, you are accepted to the faculty ${sessionScope.passedOnFacultiesName}.Your study
+                    form ${sessionScope.passedOnFacultiesStudyForm} </h2>
             </div>
         </div>
         <div>
@@ -73,15 +73,15 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="font-weight-bold">${requestScope.passedOnFacultiesName} </td>
-                    <td>${requestScope.passedOnFacultiesStudyForm}</td>
+                    <td class="font-weight-bold">${sessionScope.passedOnFacultiesName} </td>
+                    <td>${sessionScope.passedOnFacultiesStudyForm}</td>
                 </tr>
                 <tbody>
             </table>
         </div>
     </c:when>
 
-    <c:otherwise >
+    <c:otherwise>
         <div>
             <table border="1" class="table table-hover table_sort text-center text-white my-table-class">
                 <thead>
@@ -119,5 +119,8 @@
     </c:otherwise>
 
 </c:choose>
+<c:remove var="passedOnFacultiesStudyForm" scope="session"/>
+<c:remove var="passedOnFacultiesName" scope="session"/>
+<c:remove var="alreadyAcceptedFaculty" scope="session"/>
 </body>
 </html>
