@@ -23,8 +23,10 @@ public class FacultiesDAO {
             + "  WHERE id=?";
     private static final String FIND_ALL_FACULTIES = "SELECT * FROM faculties";
     private static final String DELETE_FACULTIES_BY_ID = "DELETE FROM faculties WHERE id =?";
+    private static final String FIND_LESS_FIVE_FACULTIES = "SELECT * FROM faculties WHERE allPlaces<=5";
 
     private static FacultiesDAO instance;
+
 
     public static synchronized FacultiesDAO getInstance() {
         if (instance == null) {
@@ -202,6 +204,33 @@ public class FacultiesDAO {
             connection = DBManager.getInstance().getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(FIND_ALL_FACULTIES);
+            while (resultSet.next()) {
+                listFaculties.add(facultiesMapper.mapRow(resultSet));
+            }
+            DBManager.getInstance().commit(connection);
+        } catch (SQLException e) {
+            LOGGER.trace("find all faculties fail -->", e);
+            DBManager.getInstance().rollback(connection);
+            throw new DBException("delete faculties fail", e);
+        } finally {
+            DBManager.getInstance().closeResource(statement);
+            DBManager.getInstance().closeResource(resultSet);
+            DBManager.getInstance().closeResource(connection);
+        }
+        return listFaculties;
+    }
+
+    public List<Faculties> findFacultiesLessFive() throws DBException {
+
+        List<Faculties> listFaculties = new ArrayList<>();
+        FacultiesMapper facultiesMapper = new FacultiesMapper();
+        Connection connection = null;
+        ResultSet resultSet = null;
+        Statement statement = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(FIND_LESS_FIVE_FACULTIES);
             while (resultSet.next()) {
                 listFaculties.add(facultiesMapper.mapRow(resultSet));
             }

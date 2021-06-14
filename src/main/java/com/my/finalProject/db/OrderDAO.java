@@ -23,6 +23,9 @@ public class OrderDAO {
     private static final String FIND_ORDER_BY_ACCOUNT_ID_FACULTIES_ID = "SELECT * FROM `order` WHERE account_id =? AND faculties_id =?";
     private static OrderDAO instance;
 
+    private OrderDAO() {
+    }
+
     public static synchronized OrderDAO getInstance() {
         if (instance == null) {
             instance = new OrderDAO();
@@ -56,7 +59,8 @@ public class OrderDAO {
         }
         return order;
     }
-    public Order findOrderByAccountIdAndFacultiesId(Long account_id,Long faculties_id ) throws DBException {
+
+    public Order findOrderByAccountIdAndFacultiesId(Long account_id, Long faculties_id) throws DBException {
         Order order = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -66,7 +70,7 @@ public class OrderDAO {
             OrderMapper orderMapper = new OrderMapper();
             preparedStatement = connection.prepareStatement(FIND_ORDER_BY_ACCOUNT_ID_FACULTIES_ID);
             preparedStatement.setLong(PARAMETER_INDEX, account_id);
-            preparedStatement.setLong(2,faculties_id);
+            preparedStatement.setLong(2, faculties_id);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 order = orderMapper.mapRow(resultSet);

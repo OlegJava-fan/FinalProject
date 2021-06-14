@@ -47,6 +47,7 @@ public class CommandContainer {
         commands.put("sortByPayPlaceFaculties", new SortByPayPlaceFacultiesCommand());
         commands.put("sortByPayPlaceFacultiesReverse", new SortByPayPlaceFacultyReversCommand());
         commands.put("uploadCertificate", new UploadCertificateCommand());
+        commands.put("showLessFive", new ShowLessFiveCommand());
         LOGGER.debug("all command initialized");
         LOGGER.trace("command count " + commands.size());
     }

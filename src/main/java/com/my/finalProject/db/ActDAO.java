@@ -22,6 +22,7 @@ public class ActDAO {
     private static final String FIND_ALL_ACT_BY_ID = "SELECT * FROM act WHERE account_id =?";
 
     private static ActDAO instance;
+    private ActDAO(){}
 
     public static synchronized ActDAO getInstance() {
         if (instance == null) {

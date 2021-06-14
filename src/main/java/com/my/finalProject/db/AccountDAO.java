@@ -26,6 +26,7 @@ public class AccountDAO {
     private static final String FIND_ALL_ACCOUNT = "SELECT * FROM account";
 
     private static AccountDAO instance;
+    private AccountDAO(){}
 
     public static synchronized AccountDAO getInstance() {
         if (instance == null) {

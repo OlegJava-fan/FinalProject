@@ -37,6 +37,14 @@
                 </div>
             </form>
         </div>
+        <div class="pl-sm-3 pt-sm-3">
+            <form action="controller" method="get">
+                <div class="button">
+                    <input type="hidden" name="command" value="showLessFive">
+                    <button class="btn btn-sm" type="submit">show <5 faculties</button>
+                </div>
+            </form>
+        </div>
     </nav>
 </header>
 <body>
@@ -127,41 +135,44 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${sessionScope.facultiesList}" var="facultiesList">
-            <c:if test="${facultiesList.id>1}">
-                <tr>
-                    <td class="font-weight-bold">${facultiesList.name} </td>
-                    <td>${facultiesList.freeFormPlaces}</td>
-                    <td>${facultiesList.payFormPlaces}</td>
-                    <td>${facultiesList.allPlace}</td>
-                    <td>
-                        <form action="controller" method="post">
-                            <div class="button">
-                                <input type="hidden" name="faculties_id" value="${facultiesList.id}"/>
-                                <input type="hidden" name="command" value="deleteFaculties"/>
-                                <button class="btn btn-sm" type="submit">delete faculties</button>
-                            </div>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="updateFaculties.jsp" method="get">
-                            <div class="button">
-                                <input type="hidden" name="name" value="${facultiesList.name}"/>
-                                <input type="hidden" name="passingScorePayForm"
-                                       value="${facultiesList.passingScorePayForm}"/>
-                                <input type="hidden" name="passingScoreFreeForm"
-                                       value="${facultiesList.passingScoreFreeForm}"/>
-                                <input type="hidden" name="allPlace" value="${facultiesList.allPlace}"/>
-                                <input type="hidden" name="freeFormPlaces" value="${facultiesList.freeFormPlaces}"/>
-                                <input type="hidden" name="payFormPlaces" value="${facultiesList.payFormPlaces}"/>
-                                <input type="hidden" name="faculties_id" value="${facultiesList.id}"/>
-                                <button class="btn btn-sm" type="submit">update faculties</button>
-                            </div>
-                        </form>
-                    </td>
-                </tr>
-            </c:if>
-        </c:forEach>
+
+            <c:forEach items="${sessionScope.facultiesList}" var="facultiesList">
+                <c:if test="${facultiesList.id>1}">
+                    <tr>
+                        <td class="font-weight-bold">${facultiesList.name} </td>
+                        <td>${facultiesList.freeFormPlaces}</td>
+                        <td>${facultiesList.payFormPlaces}</td>
+                        <td>${facultiesList.allPlace}</td>
+                        <td>
+                            <form action="controller" method="post">
+                                <div class="button">
+                                    <input type="hidden" name="faculties_id" value="${facultiesList.id}"/>
+                                    <input type="hidden" name="command" value="deleteFaculties"/>
+                                    <button class="btn btn-sm" type="submit">delete faculties</button>
+                                </div>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="updateFaculties.jsp" method="get">
+                                <div class="button">
+                                    <input type="hidden" name="name" value="${facultiesList.name}"/>
+                                    <input type="hidden" name="passingScorePayForm"
+                                           value="${facultiesList.passingScorePayForm}"/>
+                                    <input type="hidden" name="passingScoreFreeForm"
+                                           value="${facultiesList.passingScoreFreeForm}"/>
+                                    <input type="hidden" name="allPlace" value="${facultiesList.allPlace}"/>
+                                    <input type="hidden" name="freeFormPlaces" value="${facultiesList.freeFormPlaces}"/>
+                                    <input type="hidden" name="payFormPlaces" value="${facultiesList.payFormPlaces}"/>
+                                    <input type="hidden" name="faculties_id" value="${facultiesList.id}"/>
+                                    <button class="btn btn-sm" type="submit">update faculties</button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                </c:if>
+            </c:forEach>
+
+
         </tbody>
     </table>
 </div>

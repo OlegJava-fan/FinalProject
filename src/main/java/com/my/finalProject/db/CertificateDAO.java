@@ -28,6 +28,9 @@ public class CertificateDAO {
 
     private static CertificateDAO instance;
 
+    private CertificateDAO() {
+    }
+
     public static synchronized CertificateDAO getInstance() {
         if (instance == null) {
             instance = new CertificateDAO();

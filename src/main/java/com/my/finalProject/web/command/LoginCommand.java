@@ -86,6 +86,7 @@ public class LoginCommand extends Command {
                 return forward;
             }
             try {
+
                 facultiesList = FacultiesDAO.getInstance().findAllFaculties();
                 session.setAttribute("facultiesList", facultiesList);
                 LOGGER.trace("Set the session attribute: all faculties --> " + facultiesList.size());

@@ -17,6 +17,7 @@ com\my\finalProject\Path.class
 com\my\finalProject\builder\impl\CertificateBuilder.class
 com\my\finalProject\web\command\ConfirmAdmissionFacultiesCommand.class
 com\my\finalProject\web\command\find\FindAccountOrdersCommand.class
+com\my\finalProject\web\command\ShowLessFiveCommand.class
 com\my\finalProject\db\AccountDAO$1.class
 com\my\finalProject\db\entity\entityImpl\Account.class
 com\my\finalProject\builder\impl\AccountBuilder.class
